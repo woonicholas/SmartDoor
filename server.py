@@ -1,18 +1,38 @@
 import socket
-import thread
+import threading
+
+allclients = set()
+client_lock = threading.Lock()
 
 def new_client(conn, addr):
-  while True:
-    data = conn.recv(1024).decode()
-    if not data:
-      break
-    print("from " + str(addr) + ': ' + str(data))
-    message = raw_input(' -> ')
-    conn.send(message.encode())  # send data to the client
-  conn.close()  # close the connection
+  with client_lock:
+    allclients.add(conn)
+
+  try:
+    while True:
+      data = conn.recv(1024).decode()
+      if not data:
+        break
+
+      print("from " + str(addr) + ': ' + str(data))
+
+      if data == 'pubsubtest':
+        with client_lock:
+          for i in allclients:
+            i.send('this is a test'.encode())
+
+      else:
+        message = input(' -> ')
+        conn.send(message.encode())  # send data to the client
+
+  finally:
+    with client_lock:
+      allclients.remove(conn)
+      conn.close()  # close the connection
 
 def server_program():
-  host = '128.195.79.138'
+  #host = '128.195.79.138'
+  host = socket.gethostname()
   port = 5000
 
   server_socket = socket.socket()
@@ -25,7 +45,8 @@ def server_program():
 
   while True:
     conn, address = server_socket.accept()
-    thread.start_new_thread(new_client, (conn, address))
+    #thread.start_new_thread(new_client, (conn, address)) Python 2
+    threading.Thread(group = None, target = new_client, args = (conn, address)).start()
 
 
   server_socket.close()
