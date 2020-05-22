@@ -1,0 +1,98 @@
+<!DOCTYPE html>  
+<html> 
+<head> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type='text/css' href="{{ url_for('static',filename='css/style.css') }}">
+  <title>Smart Door</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="{{ url_for('static',filename='js/home.js') }}"></script>
+</head>
+<body>
+  <div class='row justify-content-center'>
+    <h1>Smart Door</h1>
+  </div>
+  <div class='row mt-5 justify-content-center'>
+    <div class='card col-md-4 p-3 shadow-lg'>
+      <table class="table">
+        <thead>
+          <div class='row'>
+            <h4 class='col-md-6 card-title'>Residents</h4>
+            <button type='button' class='btn btn-outline-dark ml-auto mr-3 mb-1' data-toggle='modal' data-target='#newPersonModal'>Add New Person</button>
+          </div>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Theme Song</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for p in people%} 
+          <tr>
+            <th scope="row">{{p['id']}}</th>
+            <td>{{p['name']}}</td>
+            <td>
+              <div class="dropdown">
+                <button id='song-select' class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{p['song']}}
+                </button>
+                <div class="dropdown-menu" onclick='songSelect(event);' aria-labelledby="dropdownMenuButton">
+                  {%for s in songs%}
+                    <a class="dropdown-item" id="{{p['id']}}" href="#">{{s['song']}}</a>
+                  {%endfor%}
+                </div>
+              </div>
+            </td>
+          </tr>
+          {%endfor%} 
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal fade" id="newPersonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class='form' onsubmit='createUser(event);'>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Person</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <div class='row my-3 justify-content-center'>
+                <div class='col-md-2'>
+                  <label for="personName">Name:</label>
+                </div>
+                <div class=col-md-5>
+                  <input type="name" class="form-control" id="personName" name='personName' placeholder="Enter Name"></input>
+                </div>
+              </div>
+              <div class='row my-3 justify-content-center'>
+                <div class='col-md-2'>
+                  <label for="songName">Song:</label>
+                </div>
+                <div class=col-md-5>
+                  <select id="songName" name="songName">
+                    {%for s in songs%}
+                      <option value="{{s['song']}}">{{s['song']}}</option>
+                    {%endfor%}
+                  </select>
+                </div>
+              </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  
+</body> 
+</html> 
