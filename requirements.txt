@@ -1,0 +1,8 @@
+Flask==1.1.2
+tensorflow==2.0.0b
+pandas==1.0.3
+seaborn==0.10.1
+matplotlib==3.2.1
+grpcio==1.27.2
+gunicorn==19.9.0
+
