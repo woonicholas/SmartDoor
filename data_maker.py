@@ -29,6 +29,7 @@ def randomTime(base, end):
 
 def timeToString(hours, minutes):
     # figure out AM or PM
+    hours = hours%24
     if hours >= 12:
         suffix = 'PM'
         if hours > 12:
@@ -48,33 +49,43 @@ class TimeObject():
 		self.enter_hour = enter_hour
 		self.enter_minute = enter_minute
 		self.enter_time = enter_time
-		self.leave_time = leave_time
 		self.day = day
 		self.time_spent = leave_time - enter_time
 
-for p in people:
-	data[p] = set()
-	start = int(abs(random.gauss(200, 80)))
-	end = int(abs(random.gauss(1000, 80)))
-	stay = int(abs(random.gauss(start + 80, 70)))
-	start, end = min(start, end), max(start, end)
-	for i in range(200):
-		day = int(random.random()*7)
-		eh, em, stime = randomTime(start, end)
-		lh, lm, lrtime = randomTime(stime, int(30 + stime+stay * (1.07 - day/40)))
-		data[p].add(TimeObject(p, eh, em, stime, lrtime, day))
+def write_to_file():
+	for p in people:
+		data[p] = set()
+		start = int(abs(random.gauss(200, 80)))
+		end = int(abs(random.gauss(1000, 80)))
+		stay = int(abs(random.gauss((end-start)/4, 80)))
+		start, end = min(start, end), max(start, end)
+		for i in range(500):
+			day = int(random.random()*7)
+			eh, em, stime = randomTime(start, end)
+			lrtime = stime + int(30 + stime+stay * (1.07 - day/40) * random.uniform(0.98, 1.02))
+			data[p].add(TimeObject(p, eh, em, stime, lrtime, day))
 
 
-with open('time.data', 'w') as file:
-	for k, v in data.items():
-		for i in v:
+	with open('time.data', 'w') as file:
+		for k, v in data.items():
+			for i in v:
+				file.write(str(i.name) + ' ')
+				file.write(str(i.enter_time) + ' ')
+				file.write(str(i.day) + ' ')
+				file.write(str(i.time_spent) + '\n')
+
+'''
+data: [['Emma', 329, 2, 234],
+	   ['Benjamin', 123, 0, 560],
+	   ['Liam', 429, 6, 100],
+	]
+'''
+def write_new_data(data):
+	with open('time.data', 'a+') as file:
+		for i in data:
 			file.write(str(i.name) + ' ')
 			file.write(str(i.enter_time) + ' ')
-			file.write(str(i.leave_time) + ' ')
 			file.write(str(i.day) + ' ')
 			file.write(str(i.time_spent) + '\n')
-
-
-
 
 
