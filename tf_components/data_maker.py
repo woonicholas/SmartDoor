@@ -36,6 +36,8 @@ def timeToString(hours, minutes):
             hours = hours - 12
     else:
         suffix = 'AM'
+    if hours == 0:
+        hours = 12
 
     time_string = '%02d:%02d' % (hours, minutes)
     time_string += ' ' + suffix
