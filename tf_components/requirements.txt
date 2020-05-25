@@ -1,0 +1,9 @@
+Flask==1.1.2
+tensorflow-gpu==2.0.0b
+pandas==0.25.3
+seaborn==0.10.1
+grpcio==1.27.2
+gunicorn==19.9.0
+numpy==1.18.4
+python-dotenv
+

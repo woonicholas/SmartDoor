@@ -7,14 +7,8 @@ data = {}
 
 people = ["Liam", "Emma",
           "Noah", "Olivia",
-          "William", "Ava",
-          "James",	"Isabella",
-          "Oliver", "Sophia",
           "Benjamin", "Charlotte",
-          "Elijah", "Mia",
-          "Lucas", "Amelia",
-          "Mason", "Harper",
-          "Logan", "Evelyn"]
+          "Henry", "Ivan"]
 
 
 def randomTime(base, end):
@@ -61,7 +55,7 @@ def write_to_file():
 		end = int(abs(random.gauss(1000, 80)))
 		stay = int(abs(random.gauss((end-start)/4, 80)))
 		start, end = min(start, end), max(start, end)
-		for i in range(500):
+		for i in range(100):
 			day = int(random.random()*7)
 			eh, em, stime = randomTime(start, end)
 			lrtime = stime + int(30 + stime+stay * (1.07 - day/40) * random.uniform(0.98, 1.02))
@@ -83,11 +77,12 @@ data: [['Emma', 329, 2, 234],
 	]
 '''
 def write_new_data(data):
-	with open('time.data', 'a+') as file:
-		for i in data:
-			file.write(str(i.name) + ' ')
-			file.write(str(i.enter_time) + ' ')
-			file.write(str(i.day) + ' ')
-			file.write(str(i.time_spent) + '\n')
+    with open('time.data', 'a+') as file:
+        for i in data:
+            print(i.items())
+            file.write(str(i['name']) + ' ')
+            file.write(str(int(i['enter_time'])) + ' ')
+            file.write(str(int(i['day'])) + ' ')
+            file.write(str(int(i['time_spent'])) + '\n')
 
 

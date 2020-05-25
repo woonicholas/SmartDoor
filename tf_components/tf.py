@@ -14,7 +14,7 @@ from tensorflow.keras import layers
 #import tensorflow_docs as tfdocs
 #import tensorflow_docs.modeling
 
-NEW_FILE = True
+NEW_FILE = False
 
 class EpochDots(tf.keras.callbacks.Callback):
   """A simple callback that prints a "." every epoch, with occasional reports.
