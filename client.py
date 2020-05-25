@@ -3,9 +3,9 @@ import socket
 
 
 def client_program():
-    host = socket.gethostname()
-    #host = '128.195.79.138'  # change this to server ip specified in UCI VPN
-    port = 5001  # socket server port number
+    #host = socket.gethostname()
+    host = '128.195.78.119'  # change this to server ip specified in UCI VPN
+    port = 5006  # socket server port number
 
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
