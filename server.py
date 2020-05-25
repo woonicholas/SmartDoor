@@ -1,6 +1,7 @@
 import socket
 import threading
 
+
 allclients = set()
 client_lock = threading.Lock()
 
@@ -10,7 +11,7 @@ def new_client(conn, addr):
 
   try:
     while True:
-      data = conn.recv(1024).decode()
+      data = conn.recv(1024).decode('utf-8')
       if not data:
         break
 
@@ -33,7 +34,7 @@ def new_client(conn, addr):
 def server_program():
   #host = '128.195.79.138'
   host = socket.gethostname()
-  port = 5000
+  port = 5001
 
   server_socket = socket.socket()
   server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
