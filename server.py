@@ -30,7 +30,6 @@ def new_client(conn, addr):
   try:
     while True:
       data = conn.recv(1024).decode()
-      print(data)
       if not data:
         break
 
@@ -43,7 +42,12 @@ def new_client(conn, addr):
           for i in allclients:
             i.send('this is a test'.encode())
 
-
+      elif data.startswith("songs_db"):
+        print('Song Database Received!\nWriting to json file...')
+        db_data = json.loads(data[8:])
+        out_file = open("songs_db.json", "w")
+        json.dump(db_data, out_file, indent=2)
+        out_file.close()
 
       elif data.startswith('camera'):
         splitted = data.split()
@@ -109,8 +113,8 @@ def new_client(conn, addr):
       conn.close()  # close the connection
 
 def server_program():
-  host = '128.195.71.227'
-  #host = socket.gethostname()
+  # host = '128.195.78.119'
+  host = socket.gethostname()
   port = 5006
 
   server_socket = socket.socket()
