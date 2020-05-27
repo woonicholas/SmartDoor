@@ -4,14 +4,16 @@ import socket
 import requests
 import multiprocessing
 import time
-from playsound import playsound
+# from playsound import playsound
 import pyttsx3
+import pygame
 
+pygame.mixer.init()
 
 
 def music_client_program():
   # host = socket.gethostname()
-  host = '128.195.65.97'  # change this to server ip specified in UCI VPN
+  host = '128.195.67.14'  # change this to server ip specified in UCI VPN
   port = 5006  # socket server port number
 
   client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
@@ -45,10 +47,16 @@ def music_client_program():
           if(action == 'enter'):
             song = splitted[3]
             datetime = splitted[4]
-            p = multiprocessing.Process(target=playsound, args=('songs/'+song,))
-            p.start()
-            input('Press Enter to Stop Playing')
-            p.terminate()
+            pygame.mixer.music.load('songs/' + song)
+            pygame.mixer.music.set_volume(1.0)
+            pygame.mixer.music.play()
+            
+            time.sleep(10)
+            pygame.mixer.music.stop()
+            #p = multiprocessing.Process(target=playsound, args=('songs/'+song,))
+            #p.start()
+            #input('Press Enter to Stop Playing')
+            #p.terminate()
             
             prediction = requests.get('http://35.236.46.222:8080/%s/%s' % (names[name], datetime), 
                     auth=('smartdoorcool',
