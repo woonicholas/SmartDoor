@@ -80,11 +80,14 @@ if __name__ == '__main__':
                        choices=['inside','outside'], required=True)
     parser.add_argument('--host', help='server ip', required=True)
     parser.add_argument('--port', help='server port', required=True)
+	
+    args = parser.parse_args()
+
     #Set location of camera, ip and port
     in_or_out = args.location # set location of camera
     host = args.host  # as both code is running on same pc
     port = int(args.port)  # socket server port number
-    args = parser.parse_args()
+
     
     MODEL_NAME = args.modeldir
     GRAPH_NAME = args.graph
