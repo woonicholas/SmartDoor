@@ -1,12 +1,23 @@
 { "songs":[
   {
-    "song": "YMCA"
+    "song": "YMCA",
+    "file": "ymca.mp3"
   },
   {
-    "song": "Omae Wa Mou"
+    "song": "Omae Wa Mou",
+    "file": "omae_wa_mou.mp3"
   },
   {
-    "song": "I Want It That Way"
-  }
+    "song": "Silhouette",
+    "file": "silhouette.mp3"
+  },
+  {
+    "song": "Zen Zen Zense",
+    "file": "zenzenzense.mp3"
+  },
+  {
+    "song": "Levels",
+    "file": "levels.mp3"
+  },
 ]
 }
