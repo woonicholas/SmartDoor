@@ -219,8 +219,8 @@ if __name__ == '__main__':
                             if ONLINE:
                                 message = f"camera {object_name} {in_or_out} {curr_time}"
                                 client_socket.send(message.encode())
-                                data = client_socket.recv(1024).decode()  # receive response
-                                print('Received from server: ' + data)  # show in terminal
+#                                 data = client_socket.recv(1024).decode()  # receive response
+#                                 print('Received from server: ' + data)  # show in terminal
                                 
 #                     label = '%s: %d%%' % (object_name, int(scores[i]*100)) # Example: 'person: 72%'
 #                     labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
