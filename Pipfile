@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+requests = "*"
+pydub = "*"
+ffmpeg = "*"
+ffmpeg-python = "*"
+pyttsx3 = "*"
+pywin32 = "*"
+
+[requires]
+python_version = "3.7"
