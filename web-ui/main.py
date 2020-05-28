@@ -8,10 +8,10 @@ CORS(app)
 
 @app.route('/')
 def home_page():
-  with open('db.json') as json_file:
-    with open('songs.json') as songs:
+  with open('db.json', 'r') as json_file:
+    with open('songs.json', 'r') as song_file:
       people = json.load(json_file)
-      songs = json.load(songs)
+      songs = json.load(song_file)
       return render_template("index.html", people = people['people'], songs= songs['songs'])
 
 @app.route('/select-song', methods = ['PUT'])

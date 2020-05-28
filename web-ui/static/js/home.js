@@ -9,7 +9,7 @@ function songSelect(event){
       song: event.target.text
     }
   }).then(response => {
-    document.getElementById('song-select').innerHTML = event.target.text;
+    document.getElementById(`song-select ${event.target.id}`).innerHTML = event.target.text;
   });
 }
 
@@ -24,7 +24,6 @@ function createUser(event){
       song: formData.get('songName')
     }
   }).then(response =>{
-    console.log('yessir');
     location.reload();
   })
 }
