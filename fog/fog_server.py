@@ -1,8 +1,13 @@
-import socket
 import threading
 from datetime import datetime
 import requests
 import json
+import zmq
+import sys
+
+##imports from parent directory
+sys.path.insert(0, '..')
+from constants import *
 
 allclients = set()
 time_dict = dict()
@@ -52,8 +57,6 @@ def new_client(conn, addr):
       data = conn.recv(1024).decode()
       if not data:
         break
-
-
 
       print("from " + str(addr) + ': ' + str(data))
 
@@ -185,7 +188,7 @@ def new_client(conn, addr):
       conn.close()  # close the connection
 
 def server_program():
-  host = '128.195.65.97'
+  host = '128.195.68.183'
   # host = socket.gethostname()
   port = 5006
 
@@ -205,6 +208,66 @@ def server_program():
 
   server_socket.close()
 
+#camera person outside 129123
+def fog_server():
+  context = zmq.Context()
+  socket = context.socket(zmq.SUB) 
+
+  print('Collecting updates from cameras')
+  socket.bind("tcp://%s:%s" % (HOST, IN_PORT)) # sUBS to Speaker server
+
+  socket.setsockopt_string(zmq.SUBSCRIBE, 'camera')
+  
+  pub = context.socket(zmq.PUB) 
+  pub.bind("tcp://%s:%s" % (HOST, OUT_PORT)) # PUBS to Speaker server
+
+  try:
+    while True:
+      message = socket.recv().decode()
+      splitted = message.split()
+      topic = splitted[0]
+      name = splitted[1]
+      location = splitted[2]
+      
+      if topic == 'camera':
+        if name not in visitor_dict:
+          visitor_dict[name] = {
+            'location': ''
+          }
+        
+        if location == 'outside':
+          if visitor_dict[name]['location'] == '':
+            visitor_dict[name]['location'] = 'outside'
+          elif visitor_dict[name]['location'] == 'inside':
+            fog_pub(pub, 'speaker %s exit %s'%(name,get_time_for_api()))
+            visitor_dict[name]['location'] = 'outside'
+        
+        if location == 'inside':
+          if visitor_dict[name]['location'] == '':
+            visitor_dict[name]['location'] = 'inside'
+          elif visitor_dict[name]['location'] == 'outside':
+            song = ''
+            for p in songs_dict['people']:
+              if p['name'] == name:
+                song = p['song']
+            song_file = ''
+            for s in song_map['songs']:
+              if s['song'] == song:
+                song_file = s['file']
+            music_message = 'speaker ' + name + ' enter ' + song_file #adds person's name and song_file to send to 
+            music_message = music_message + ' ' + get_time_for_api()  # adds formatted datetime for cloud
+            fog_pub(pub, music_message)
+            visitor_dict[name]['location'] = 'inside'
+
+      
+  except KeyboardInterrupt:
+    print('Exiting Server..')
+
+def fog_pub(pub, message):
+  print (message)
+  pub.send_string(message)
+   
+
 
 if __name__ == '__main__':
-  server_program()
+  fog_server()
