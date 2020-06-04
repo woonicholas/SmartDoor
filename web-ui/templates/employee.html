@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type='text/css' href="{{ url_for('static',filename='css/style.css') }}">
+    <script src="{{ url_for('static',filename='js/employee.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['timeline']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Activity', 'Start Time', 'End Time'],
+        ['In Office',
+         new Date(2014, 10, 15, 8),
+         new Date(2014, 10, 15, 17)],
+        ['Out of Office',
+         new Date(2014, 10, 15, 0, 30),
+         new Date(2014, 10, 15, 8)],
+        ['Out of Office',
+         new Date(2014, 10, 15, 18),
+         new Date(2014, 10, 15, 24)],
+      ]);
+
+
+      var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+
+      chart.draw(data);
+    }
+    </script>
+  </head>
+  <body>
+    <div class='row justify-content-center'>
+      <h1>Smart Door</h1>
+    </div>
+    <div class='row mt-5 justify-content-center'>
+      <div class='card col-md-6 p-3'>
+        <div class='row'>
+          <h2 class='ml-3'>{{employee['full_name']}}</h2>
+          <button type='button' class='btn btn-outline-danger ml-auto mr-3 mb-1' onclick='handleBackClick();'>Go Back</button>
+        </div>
+        <hr>
+        <div class='row'>
+          <div class='col-md-6 ml-3'>
+            <dl>
+              <dt>Role:</dt>
+                <dd>{{employee['role']}}</dd>
+              <dt>Song:</dt>
+                <dd>{{employee['song']}}</dd>
+            </dl>
+          </div>
+          <img class='headshot float-right mx-4 ml-auto' src="{{url_for('static', filename='images/headshot.jpg')}}"></img>  
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class='row mt-1 justify-content-center'>
+      <div class='card col-md-6 p-4'>
+        <div class='card-title'>
+          <h2>Predictions</h2>
+          <hr>
+        </div>
+        <div id='chart_div' class='m-2'></div>
+      </div>
+  </body>
+</html>

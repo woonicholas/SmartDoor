@@ -32,7 +32,7 @@
           {%for p in people%} 
           <tr>
             <th scope="row">{{p['id']}}</th>
-            <td>{{p['name']}}</td>
+            <td id="{{p['id']}}" class='employeeTableName' onclick='handleNameClick(event);'>{{p['name']}}</td>
             <td>
               <div class="dropdown">
                 <button id="song-select {{p['id']}}" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

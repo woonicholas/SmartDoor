@@ -14,6 +14,16 @@ def home_page():
       songs = json.load(song_file)
       return render_template("index.html", people = people['people'], songs= songs['songs'])
 
+@app.route('/employee/<id>')
+def employee_page(id):
+  with open('db.json', 'r') as db:
+    data = json.load(db)
+    for i in data['people']:
+      if i["id"] == id:
+        data = i
+        break
+  return render_template("employee.html", employee=data)
+
 @app.route('/select-song', methods = ['PUT'])
 def select_song():
   req = request.get_json()

@@ -27,3 +27,7 @@ function createUser(event){
     location.reload();
   })
 }
+
+function handleNameClick(event){
+  location.href = `http://127.0.0.1:5000/employee/${event.target.id}`;
+}
