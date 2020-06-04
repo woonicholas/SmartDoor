@@ -10,19 +10,21 @@
 # We added modifications to record when a person appears and communicate with our fog device.
 
 #Debugging
-ONLINE = True
+ONLINE = False
 
 # Import packages
 import os
 import argparse
 import cv2
 import numpy as np
+import zmq
 import sys
 import time
 import calendar
 import socket
 from threading import Thread
 import importlib.util
+from constants import *
 from collections import defaultdict
 
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
@@ -78,15 +80,16 @@ if __name__ == '__main__':
     # Add argument for either outside or inside camera
     parser.add_argument('--location', help='Where the camera is physically located',
                        choices=['inside','outside'], required=True)
-    parser.add_argument('--host', help='server ip', required=True)
-    parser.add_argument('--port', help='server port', required=True)
+#     parser.add_argument('--host', help='server ip', required=True)
+#     parser.add_argument('--port', help='server port', required=True)
 	
     args = parser.parse_args()
 
     #Set location of camera, ip and port
     in_or_out = args.location # set location of camera
-    host = args.host  # as both code is running on same pc
-    port = int(args.port)  # socket server port number
+#     host = args.host  # as both code is running on same pc
+#     port = int(args.port)  # socket server port number
+
 
     
     MODEL_NAME = args.modeldir
@@ -154,19 +157,26 @@ if __name__ == '__main__':
     ### Additional code for Smartdoor ###
     people_list = defaultdict(lambda: False) #list of desired objects to detect i.e. specific people
                                              #keeps track if object detected during buffer cycle
-    people_list['person'] = False
-    people_list['banana'] = False
-    people_list['fork'] = False
-    people_list['scissors'] = False
+#objects used in place of facial recognition
+#     people_list['person'] = False
+#     people_list['banana'] = False
+#     people_list['fork'] = False
+#     people_list['scissors'] = False
     
     #Objects not detected every frame, so we have to keep a buffer to prevent oscillation
     frame_counter = 0
     frame_count = 5 #use a 5 frame buffer instead of checking every frame
-    buffer_check = defaultdict(lambda:False,people_list) #Make a dict to track object present that frame
+    buffer_check = defaultdict(lambda:True) #Make a dict to track object present that frame
     
     if ONLINE:
-        client_socket = socket.socket()  # instantiate
-        client_socket.connect((host, port))  # connect to the server
+        context = zmq.Context()
+        socket = context.socket(zmq.PUB)
+        if in_or_out == "inside":
+            socket.connect("tcp://%s:%s" % (HOST,IN_PORT))
+        else:
+            socket.connect("tcp://%s:%s" % (HOST,OUT_PORT))
+#         client_socket = socket.socket()  # instantiate
+#         client_socket.connect((host, port))  # connect to the server
     
     #for frame1 in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):
     try:
@@ -211,14 +221,14 @@ if __name__ == '__main__':
                     ### MY CODE ###
                     curr_time = (calendar.timegm(time.gmtime()) - 1590390000)%86400 #get minutes since midnight pst
 
-                    if object_name in people_list:
-                        buffer_check[object_name] = True
-                        if not people_list[object_name]:
-                            people_list[object_name] = True
-                            print(f"camera {object_name} {in_or_out} {curr_time}")
-                            if ONLINE:
-                                message = f"camera {object_name} {in_or_out} {curr_time}"
-                                client_socket.send(message.encode())
+#                     if object_name in people_list:
+                    buffer_check[object_name] = True
+                    if not people_list[object_name]:
+                        people_list[object_name] = True
+                        print(f"camera {object_name} {in_or_out} {curr_time}")
+                        if ONLINE:
+                            message = f"camera {object_name} {in_or_out} {curr_time}"
+                            socket.send_string(message)
 #                                 data = client_socket.recv(1024).decode()  # receive response
 #                                 print('Received from server: ' + data)  # show in terminal
                                 
@@ -242,28 +252,25 @@ if __name__ == '__main__':
                     frame_counter = 0
                     buffer_check[object_detected] = False
 
-# #             Draw framerate in corner of frame
-#             cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
+#             Draw framerate in corner of frame
+            cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
             
             # All the results have been drawn on the frame, so it's time to display it.
             cv2.imshow('Object detector', frame)
 
- #         # Calculate framerate
-#             t2 = cv2.getTickCount()
-#             time1 = (t2-t1)/freq
-#             frame_rate_calc= 1/time1
+         # Calculate framerate
+            t2 = cv2.getTickCount()
+            time1 = (t2-t1)/freq
+            frame_rate_calc= 1/time1
             
             # Press 'q' to quit
             if cv2.waitKey(1) == ord('q'):
                 break
 
-        # Clean up
-        if ONLINE:
-            client_socket.close()  # close the connection
-        cv2.destroyAllWindows()
-        videostream.stop()
     except socket.error:
-        if ONLINE:
-            client_socket.close()
-        cv2.destroyAllWindows()
-        videostream.stop()
+        print('Exiting Client')
+              
+    if ONLINE:
+        client_socket.close()
+    cv2.destroyAllWindows()
+    videostream.stop()
