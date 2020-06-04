@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>henry6.jpg</filename>
+	<path>C:\tensorflow190\models\research\object_detection\images\train\henry6.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>800</width>
+		<height>600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>henry</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>415</xmin>
+			<ymin>97</ymin>
+			<xmax>693</xmax>
+			<ymax>360</ymax>
+		</bndbox>
+	</object>
+</annotation>

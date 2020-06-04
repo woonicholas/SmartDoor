@@ -9,7 +9,7 @@ function songSelect(event){
       song: event.target.text
     }
   }).then(response => {
-    document.getElementById('song-select').innerHTML = event.target.text;
+    document.getElementById(`song-select ${event.target.id}`).innerHTML = event.target.text;
   });
 }
 
@@ -24,7 +24,10 @@ function createUser(event){
       song: formData.get('songName')
     }
   }).then(response =>{
-    console.log('yessir');
     location.reload();
   })
+}
+
+function handleNameClick(event){
+  location.href = `http://127.0.0.1:5000/employee/${event.target.id}`;
 }

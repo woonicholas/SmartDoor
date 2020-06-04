@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>ivan6.png</filename>
+	<path>C:\tensorflow190\models\research\object_detection\images\train\ivan6.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>349</width>
+		<height>329</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>ivan</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>211</xmin>
+			<ymin>135</ymin>
+			<xmax>306</xmax>
+			<ymax>236</ymax>
+		</bndbox>
+	</object>
+</annotation>
