@@ -4,8 +4,9 @@ import zmq
 import requests
 import multiprocessing
 import time
-from playsound import playsound
+# from playsound import playsound
 import pyttsx3
+import pygame
 
 ##imports from parent directory
 import sys
@@ -15,10 +16,11 @@ from constants import *
 
 
 def music_client_program():
+
+  pygame.mixer.init()
   
   context = zmq.Context()
   socket = context.socket(zmq.SUB)
-
   socket.connect("tcp://%s:%s" % (HOST, OUT_PORT))  # connect to the server
   socket.setsockopt_string(zmq.SUBSCRIBE, "speaker")
 
@@ -44,10 +46,17 @@ def music_client_program():
       if(action == 'enter'):
         song = splitted[3]
         datetime = splitted[4]
-        p = multiprocessing.Process(target=playsound, args=('songs/'+song,))
-        p.start()
-        input('Press Enter to Stop Playing')
-        p.terminate()
+        pygame.mixer.music.load('/songs/' + song)
+        pygame.mixer.music.set_volume(1.0)
+        pygame.mixer.music.play()
+
+        time.sleep(10)
+        pygame.mixer.music.stop()
+
+        # p = multiprocessing.Process(target=playsound, args=('songs/'+song,))
+        # p.start()
+        # input('Press Enter to Stop Playing')
+        # p.terminate()
         
         prediction = requests.get('http://35.236.46.222:8080/%s/%s' % (names[name], datetime), 
                 auth=('smartdoorcool',
