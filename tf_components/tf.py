@@ -44,18 +44,16 @@ class EpochDots(tf.keras.callbacks.Callback):
 import data_maker
 import os
 
+norm_dict = dict()
 
-
-def get_model(epoch):
-    if NEW_FILE or not os.path.exists('time.data'):
+def train_model(epoch, path, diff, ppram):
+    if NEW_FILE or not os.path.exists(path):
         data_maker.write_to_file()
     
-    column_names = ['Name', 'Enter', 'Day', 'Time Spent']
-    raw_dataset = pd.read_csv('time.data', names=column_names,
+    column_names = ['Name', 'Day', diff, ppram]
+    raw_dataset = pd.read_csv(path, names=column_names,
                           na_values = "?", comment='\t',
                           sep=" ", skipinitialspace=True)
-
-
     dataset = raw_dataset.copy()
     dataset.isna().sum()
     dataset = dataset.dropna()
@@ -64,17 +62,26 @@ def get_model(epoch):
     test_dataset = dataset.drop(train_dataset.index)
 
     train_stats = train_dataset.describe()
-    train_stats.pop("Time Spent")
+
+    global norm_dict
+    norm_dict[ppram] = (train_stats[ppram].std(), train_stats[ppram].mean())
+    train_stats.pop(ppram)
     train_stats = train_stats.transpose()
 
-    train_labels = train_dataset.pop('Time Spent')
-    test_labels = test_dataset.pop('Time Spent')
+    norm_dict[path] = train_stats
+
+    train_labels = train_dataset.pop(ppram)
+    test_labels = test_dataset.pop(ppram)
 
     global norm
-    def norm(x):
-      return (x - train_stats['mean']) / train_stats['std']
-    normed_train_data = norm(train_dataset)
-    normed_test_data = norm(test_dataset)
+    def norm(x, path):
+      return (x - norm_dict[path]['mean']) / norm_dict[path]['std']
+    global denorm
+    def denorm(x, key):
+      #print('std', norm_dict[key][0])
+      return (x - norm_dict[key][1]) / (norm_dict[key][0]/4)
+    normed_train_data = norm(train_dataset, path)
+    normed_test_data = norm(test_dataset, path)
 
     def build_model():
       model = keras.Sequential([
@@ -101,7 +108,6 @@ def get_model(epoch):
     hist = pd.DataFrame(history.history)
     hist['epoch'] = history.epoch
     hist.tail()
-
     print()
 
     #test_predictions = model.predict(normed_test_data).flatten()
@@ -113,21 +119,41 @@ def predict_leave(model, name, enter, day):
     if name not in data_maker.people:
         return ("we don't have enough data for {} yet<br>"
                 "here's a list of people we currently have {}".format(name, data_maker.people))
-    weekday = ['Sunday', 'Monday', 'Tuesday',
-             'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    weekday = ['Monday', 'Tuesday', 'Wednesday',
+            'Thursday', 'Friday', 'Saturday', 'Sunday']
     my_dataset = pd.DataFrame(data={'Name': [name],
                                   'Enter': [enter],
                                   'Day': [day]})
     my_dataset = pd.get_dummies(my_dataset, prefix='', prefix_sep='')
-    normed_data = norm(my_dataset).fillna(value=0)
+    normed_data = norm(my_dataset, 'leave.data').fillna(value=0)
     my_prediction = model.predict([normed_data]).flatten()
-    leave = [int(x) for x in my_prediction][0] + enter
+    leave = denorm([int(x) for x in my_prediction][0], 'Time Spent') + enter
     return '{} came in at {} on a {} and is predicted to leave at {}'.format(
         name,
         data_maker.timeToString(enter//60, enter%60),
         weekday[day],
         data_maker.timeToString(leave//60, leave%60))
 
+def predict_enter(model, name, supposed_enter, day):
+    if day < 0 or day > 6:
+        return '{} is not a valid day of the week, please put 0-6'.format(day)
+    if name not in data_maker.people:
+        return ("we don't have enough data for {} yet<br>"
+                "here's a list of people we currently have {}".format(name, data_maker.people))
+    weekday = ['Monday', 'Tuesday', 'Wednesday',
+            'Thursday', 'Friday', 'Saturday', 'Sunday']
+    my_dataset = pd.DataFrame(data={'Name': [name],
+                                  'Supposed Enter': [supposed_enter],
+                                  'Day': [day]})
+    my_dataset = pd.get_dummies(my_dataset, prefix='', prefix_sep='')
+    normed_data = norm(my_dataset, 'enter.data').fillna(value=0)
+    my_prediction = model.predict([normed_data]).flatten()
+    enter = denorm([int(x) for x in my_prediction][0], 'Enter')
+    return '{} is scheduled to come in at {} on a {} and is predicted to come in at {}'.format(
+        name,
+        data_maker.timeToString(supposed_enter//60, supposed_enter%60),
+        weekday[day],
+        data_maker.timeToString(enter//60, enter%60))
 # a = plt.axes(aspect='equal')
 # plt.scatter(test_labels, test_predictions)
 # plt.xlabel('True Values [Time Spent]')
