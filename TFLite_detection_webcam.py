@@ -10,7 +10,7 @@
 # We added modifications to record when a person appears and communicate with our fog device.
 
 #Debugging
-ONLINE = False
+ONLINE = True
 
 # Import packages
 import os
