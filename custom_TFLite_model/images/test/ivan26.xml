@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test</folder>
+	<filename>ivan26.png</filename>
+	<path>C:\tensorflow190\models\research\object_detection\images\test\ivan26.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>343</width>
+		<height>312</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>ivan</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>34</xmin>
+			<ymin>117</ymin>
+			<xmax>157</xmax>
+			<ymax>257</ymax>
+		</bndbox>
+	</object>
+</annotation>
