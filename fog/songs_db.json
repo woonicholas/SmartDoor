@@ -1,28 +1,38 @@
 {
   "people": [
     {
-      "name": "person",
+      "name": "Nick",
       "song": "YMCA",
+      "full_name": "Nicholas Woo",
+      "role": "Software Engineer",
       "id": "1"
     },
     {
-      "name": "fork",
-      "song": "Levels",
+      "name": "Ivan",
+      "song": "ZenZenZense",
+      "full_name": "Ivan Huang",
+      "role": "Project Manager",
       "id": "2"
     },
     {
-      "name": "scissors",
-      "song": "Zen Zen Zense",
+      "name": "Preston",
+      "song": "YMCA",
+      "full_name": "Preston Tai",
+      "role": "Software Engineer",
       "id": "3"
     },
     {
-      "name": "banana",
-      "song": "Silhouette",
+      "name": "Brandon",
+      "song": "YMCA",
+      "full_name": "Brandon Tom",
+      "role": "Project Manager",
       "id": "4"
     },
     {
       "name": "Henry",
-      "song": "Omae Wa Mou",
+      "song": "YMCA",
+      "full_name": "Henry Fong",
+      "role": "Software Engineer",
       "id": "5"
     }
   ]
