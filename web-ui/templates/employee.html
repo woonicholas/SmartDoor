@@ -8,19 +8,20 @@
     <script type="text/javascript">
     google.charts.load('current', {'packages':['timeline']});
     google.charts.setOnLoadCallback(drawChart);
+    
 
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Activity', 'Start Time', 'End Time'],
         ['In Office',
-         new Date(2014, 10, 15, 8),
-         new Date(2014, 10, 15, 17)],
+         new Date("{{predictions['predicted_enter']}}"),
+         new Date("{{predictions['predicted_leave']}}")],
         ['Out of Office',
-         new Date(2014, 10, 15, 0, 30),
-         new Date(2014, 10, 15, 8)],
+         new Date("{{predictions['day_start']}}"),
+         new Date("{{predictions['predicted_enter']}}")],
         ['Out of Office',
-         new Date(2014, 10, 15, 18),
-         new Date(2014, 10, 15, 24)],
+         new Date("{{predictions['predicted_leave']}}"),
+         new Date("{{predictions['day_end']}}")],
       ]);
 
 
@@ -31,7 +32,7 @@
     </script>
   </head>
   <body>
-    <div class='row justify-content-center'>
+    <div class='row justify-content-center mt-3'>
       <h1>Smart Door</h1>
     </div>
     <div class='row mt-5 justify-content-center'>

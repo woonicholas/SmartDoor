@@ -9,6 +9,8 @@ verify_ssl = true
 flask = "*"
 jinja2 = "*"
 flask-cors = "*"
+grequests = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
