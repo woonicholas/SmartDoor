@@ -9,25 +9,34 @@
     google.charts.load('current', {'packages':['timeline']});
     google.charts.setOnLoadCallback(drawChart);
     
+    /**
+    * Converts a day number to a string.
+    *
+    * @param {Number} dayIndex
+    * @return {String} Returns day as string
+    */
+    function dayOfWeekAsString(dayIndex) {
+      return ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][dayIndex] || '';
+    }
 
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ['Activity', 'Start Time', 'End Time'],
-        ['In Office',
-         new Date("{{predictions['predicted_enter']}}"),
-         new Date("{{predictions['predicted_leave']}}")],
-        ['Out of Office',
-         new Date("{{predictions['day_start']}}"),
-         new Date("{{predictions['predicted_enter']}}")],
-        ['Out of Office',
-         new Date("{{predictions['predicted_leave']}}"),
-         new Date("{{predictions['day_end']}}")],
+        {%for p in predictions.keys()%}
+        [dayOfWeekAsString("{{p}}"),
+         new Date("{{predictions[p]['predicted_enter']}}"),
+         new Date("{{predictions[p]['predicted_leave']}}")],
+        {%endfor%}
       ]);
 
+      options = {
+        height: 275,
+        width: '100%'
+      };
 
       var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
 
-      chart.draw(data);
+      chart.draw(data,options);
     }
     </script>
   </head>
@@ -62,7 +71,7 @@
           <h2>Predictions</h2>
           <hr>
         </div>
-        <div id='chart_div' class='m-2'></div>
+        <div id='chart_div' class='m-4'></div>
       </div>
   </body>
 </html>

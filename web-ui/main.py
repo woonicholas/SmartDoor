@@ -4,16 +4,17 @@ import json
 import ui_client
 import requests
 from datetime import datetime
+import time
 
 app = Flask(__name__)
 CORS(app)
 
-def get_time_for_api():
+def get_time_for_api(weekday):
   now = datetime.now()
-  if(now.weekday() < 5):
-    return '%d/%d/%d' % (8, 30, now.weekday())
+  if(weekday < 5):
+    return '%d/%d/%d' % (8, 30, weekday)
   else:
-    return '%d/%d/%d' % (now.hour, now.minute, now.weekday())
+    return '%d/%d/%d' % (now.hour, now.minute, weekday)
 
 @app.route('/')
 def home_page():
@@ -32,22 +33,22 @@ def employee_page(id):
         data = i
         break
   now = datetime.now()
-  enter_time = requests.get('http://35.236.46.222:8080/enter/%s/%s' % (data['name'], get_time_for_api()), 
-        auth=('smartdoorcool',
-              'smartdoorpass'))
-  enter_prediction = json.loads(enter_time.text)
-  leave_time = requests.get('http://35.236.46.222:8080/leave/%s/%s/%s/%s' % (data['name'], \
-        enter_prediction['predicted_enter'][0], enter_prediction['predicted_enter'][1], now.weekday()),
-        auth=('smartdoorcool',
-              'smartdoorpass'))
-  leave_prediction = json.loads(leave_time.text)
-
   predictions = dict()
-  predictions['predicted_enter'] = datetime(now.year, now.month, now.day, enter_prediction['predicted_enter'][0], enter_prediction['predicted_enter'][1]).isoformat()
-  predictions['predicted_leave'] = datetime(now.year, now.month, now.day, leave_prediction['leave'][0], leave_prediction['leave'][1]).isoformat()
-  predictions['day_start'] = datetime(now.year,now.month, now.day, 0).isoformat()
-  predictions['day_end'] = datetime(now.year,now.month, now.day, 23).isoformat()
+  for weekday in range(5):
+    enter_time = requests.get('http://35.236.46.222:8080/enter/%s/%s' % (data['name'], get_time_for_api(weekday)), 
+          auth=('smartdoorcool',
+                'smartdoorpass'))
+    enter_prediction = json.loads(enter_time.text)
+    leave_time = requests.get('http://35.236.46.222:8080/leave/%s/%s/%s/%s' % (data['name'], \
+          enter_prediction['predicted_enter'][0], enter_prediction['predicted_enter'][1], weekday),
+          auth=('smartdoorcool',
+                'smartdoorpass'))
+    leave_prediction = json.loads(leave_time.text)
+    predictions[str(weekday)] = dict()
 
+    predictions[str(weekday)]['predicted_enter'] = datetime(now.year, now.month, now.day, enter_prediction['predicted_enter'][0], enter_prediction['predicted_enter'][1]).isoformat()
+    predictions[str(weekday)]['predicted_leave'] = datetime(now.year, now.month, now.day, leave_prediction['leave'][0], leave_prediction['leave'][1]).isoformat()
+    time.sleep(1)
   print(predictions)
 
   return render_template("employee.html", employee=data, predictions = predictions)
