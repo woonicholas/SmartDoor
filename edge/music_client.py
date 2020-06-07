@@ -4,9 +4,7 @@ import zmq
 import requests
 import multiprocessing
 import time
-# from playsound import playsound
 import pyttsx3
-import pygame
 
 ##imports from parent directory
 import sys
@@ -16,8 +14,8 @@ from constants import *
 from dotenv import load_dotenv
 
 from pathlib import Path
-# env_path = Path("/home/pi/Desktop/SmartDoor/.env")
-# load_dotenv(dotenv_path=env_path)
+env_path = Path("/home/pi/Desktop/SmartDoor/.env")
+load_dotenv(dotenv_path=env_path)
 
 import os 
 import spotipy
@@ -26,6 +24,7 @@ import time
 
 username="ivanhuang77@gmail.com"
 raspotify_id = os.getenv("raspotify_device_id")
+phone_id = "43a0a1a8680013a0974a9aaf5eac96700e2007f4"
 spotify_client_id = os.getenv("spotify_client_id")
 spotify_client_secret = os.getenv("spotify_client_secret")
 
@@ -35,12 +34,10 @@ scope = "user-read-playback-state,user-modify-playback-state"
 
 def music_client_program():
 
-  # pygame.mixer.init()
-
   token = util.prompt_for_user_token( username, 
                                     scope, 
-                                    client_id="6cfd44e621824a4696b47f22e0986704",
-                                    client_secret="1ca2d9650136456bba19555747456547",
+                                    client_id=spotify_client_id,
+                                    client_secret=spotify_client_secret,
                                     redirect_uri='http://localhost:8000/'  )
   
   context = zmq.Context()
@@ -64,12 +61,7 @@ def music_client_program():
       if(action == 'enter'):
         song = splitted[3]
         datetime = splitted[4]
-        # pygame.mixer.music.load('/songs/' + song)
-        # pygame.mixer.music.set_volume(1.0)
-        # pygame.mixer.music.play()
 
-        # time.sleep(10)
-        # pygame.mixer.music.stop()
         if token:
             sp = spotipy.Spotify(auth=token)
             
@@ -80,11 +72,10 @@ def music_client_program():
             print(firstResult['name'] + ' is now playing!')
 
             ## Change playback on the active device
-            sp.start_playback(device_id='43a0a1a8680013a0974a9aaf5eac96700e2007f4', uris=['spotify:track:' + firstResult['id']])    
-            # sp.volume(100, device_id='43a0a1a8680013a0974a9aaf5eac96700e2007f4')
+            sp.start_playback(device_id=raspotify_id, uris=['spotify:track:' + firstResult['id']])    
             
             time.sleep(10)
-            sp.pause_playback(device_id='43a0a1a8680013a0974a9aaf5eac96700e2007f4')
+            sp.pause_playback(device_id=raspotify_id)
         else:
             print("Can't get token for", username)        
 
