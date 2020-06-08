@@ -120,7 +120,7 @@ def write_to_attendance(start_year, start_month, start_day, end_year, end_month,
                 time_spent = lrtime - stime
 
                 attendance.append({
-                    'date': current_date.strftime('%m/%d/%Y'),
+                    'date': current_date.strftime('%m-%d-%Y'),
                     'enter_time': stime,
                     'leave_time': lrtime,
                     'time_spent': time_spent,
@@ -130,7 +130,7 @@ def write_to_attendance(start_year, start_month, start_day, end_year, end_month,
         attendance_file.seek(0)
         json.dump(data, attendance_file, indent=4)
 
-# write_to_attendance(2020, 5, 25, 2020, 5, 29)
+write_to_attendance(2020, 6, 1, 2020, 6, 5)
 
 '''
 data: [['Emma', 329, 2, 234],
