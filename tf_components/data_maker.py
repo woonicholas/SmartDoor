@@ -130,7 +130,8 @@ def write_to_attendance(start_year, start_month, start_day, end_year, end_month,
         attendance_file.seek(0)
         json.dump(data, attendance_file, indent=4)
 
-write_to_attendance(2020, 6, 1, 2020, 6, 5)
+# write_to_attendance(2020, 5, 25, 2020, 5, 29)
+# write_to_attendance(2020, 6, 1, 2020, 6, 5)
 
 '''
 data: [['Emma', 329, 2, 234],

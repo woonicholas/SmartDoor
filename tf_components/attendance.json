@@ -4,63 +4,63 @@
             "attendance": [
                 {
                     "date": "05-25-2020",
-                    "enter_time": 518,
-                    "leave_time": 1078,
-                    "time_spent": 560
+                    "time_spent": 548,
+                    "leave_time": 1028,
+                    "enter_time": 480
                 },
                 {
                     "date": "05-26-2020",
-                    "enter_time": 535,
-                    "leave_time": 1068,
-                    "time_spent": 533
+                    "time_spent": 554,
+                    "leave_time": 1069,
+                    "enter_time": 515
                 },
                 {
                     "date": "05-27-2020",
-                    "enter_time": 453,
-                    "leave_time": 994,
-                    "time_spent": 541
+                    "time_spent": 554,
+                    "leave_time": 1047,
+                    "enter_time": 493
                 },
                 {
                     "date": "05-28-2020",
-                    "enter_time": 440,
-                    "leave_time": 994,
-                    "time_spent": 554
+                    "time_spent": 535,
+                    "leave_time": 1055,
+                    "enter_time": 520
                 },
                 {
                     "date": "05-29-2020",
-                    "enter_time": 455,
-                    "leave_time": 1014,
-                    "time_spent": 559
+                    "time_spent": 551,
+                    "leave_time": 997,
+                    "enter_time": 446
                 },
                 {
                     "date": "06-01-2020",
-                    "enter_time": 476,
-                    "leave_time": 997,
-                    "time_spent": 521
+                    "leave_time": 984,
+                    "enter_time": 450,
+                    "time_spent": 534
                 },
                 {
                     "date": "06-02-2020",
-                    "enter_time": 514,
-                    "leave_time": 1071,
-                    "time_spent": 557
+                    "leave_time": 1037,
+                    "enter_time": 490,
+                    "time_spent": 547
                 },
                 {
                     "date": "06-03-2020",
-                    "enter_time": 532,
-                    "leave_time": 1053,
-                    "time_spent": 521
+                    "leave_time": 1028,
+                    "enter_time": 478,
+                    "time_spent": 550
                 },
                 {
                     "date": "06-04-2020",
-                    "enter_time": 436,
-                    "leave_time": 984,
-                    "time_spent": 548
+                    "leave_time": 951,
+                    "enter_time": 422,
+                    "time_spent": 529
                 },
                 {
                     "date": "06-05-2020",
-                    "enter_time": 421,
-                    "leave_time": 948,
-                    "time_spent": 527
+                    "leave_time": 1074,
+                    "enter_time": 531,
+                    "time_spent": 543
                 }
             ]
         },
@@ -68,191 +68,63 @@
             "attendance": [
                 {
                     "date": "05-25-2020",
-                    "enter_time": 471,
-                    "leave_time": 1008,
-                    "time_spent": 537
+                    "time_spent": 535,
+                    "leave_time": 1023,
+                    "enter_time": 488
                 },
                 {
                     "date": "05-26-2020",
-                    "enter_time": 424,
-                    "leave_time": 971,
-                    "time_spent": 547
-                },
-                {
-                    "date": "05-27-2020",
-                    "enter_time": 509,
+                    "time_spent": 525,
                     "leave_time": 1052,
-                    "time_spent": 543
+                    "enter_time": 527
+                },
+                {
+                    "date": "05-27-2020",
+                    "time_spent": 558,
+                    "leave_time": 971,
+                    "enter_time": 413
                 },
                 {
                     "date": "05-28-2020",
-                    "enter_time": 416,
-                    "leave_time": 970,
-                    "time_spent": 554
+                    "time_spent": 523,
+                    "leave_time": 990,
+                    "enter_time": 467
                 },
                 {
                     "date": "05-29-2020",
-                    "enter_time": 522,
-                    "leave_time": 1071,
-                    "time_spent": 549
+                    "time_spent": 545,
+                    "leave_time": 961,
+                    "enter_time": 416
                 },
                 {
                     "date": "06-01-2020",
-                    "enter_time": 508,
-                    "leave_time": 1050,
-                    "time_spent": 542
+                    "leave_time": 1065,
+                    "enter_time": 533,
+                    "time_spent": 532
                 },
                 {
                     "date": "06-02-2020",
-                    "enter_time": 546,
-                    "leave_time": 1071,
-                    "time_spent": 525
-                },
-                {
-                    "date": "06-03-2020",
-                    "enter_time": 502,
-                    "leave_time": 1039,
-                    "time_spent": 537
-                },
-                {
-                    "date": "06-04-2020",
-                    "enter_time": 457,
-                    "leave_time": 985,
-                    "time_spent": 528
-                },
-                {
-                    "date": "06-05-2020",
-                    "enter_time": 503,
-                    "leave_time": 1062,
+                    "leave_time": 1030,
+                    "enter_time": 471,
                     "time_spent": 559
-                }
-            ]
-        },
-        "Preston": {
-            "attendance": [
-                {
-                    "date": "05-25-2020",
-                    "enter_time": 845,
-                    "leave_time": 2024,
-                    "time_spent": 1179
-                },
-                {
-                    "date": "05-26-2020",
-                    "enter_time": 802,
-                    "leave_time": 1915,
-                    "time_spent": 1113
-                },
-                {
-                    "date": "05-27-2020",
-                    "enter_time": 314,
-                    "leave_time": 951,
-                    "time_spent": 637
-                },
-                {
-                    "date": "05-28-2020",
-                    "enter_time": 486,
-                    "leave_time": 1259,
-                    "time_spent": 773
-                },
-                {
-                    "date": "05-29-2020",
-                    "enter_time": 571,
-                    "leave_time": 1467,
-                    "time_spent": 896
-                },
-                {
-                    "date": "06-01-2020",
-                    "enter_time": 834,
-                    "leave_time": 1790,
-                    "time_spent": 956
-                },
-                {
-                    "date": "06-02-2020",
-                    "enter_time": 444,
-                    "leave_time": 1005,
-                    "time_spent": 561
                 },
                 {
                     "date": "06-03-2020",
-                    "enter_time": 627,
-                    "leave_time": 1378,
-                    "time_spent": 751
+                    "leave_time": 1022,
+                    "enter_time": 498,
+                    "time_spent": 524
                 },
                 {
                     "date": "06-04-2020",
-                    "enter_time": 698,
-                    "leave_time": 1514,
-                    "time_spent": 816
+                    "leave_time": 1006,
+                    "enter_time": 482,
+                    "time_spent": 524
                 },
                 {
                     "date": "06-05-2020",
-                    "enter_time": 518,
-                    "leave_time": 1147,
-                    "time_spent": 629
-                }
-            ]
-        },
-        "Brandon": {
-            "attendance": [
-                {
-                    "date": "05-25-2020",
-                    "enter_time": 269,
-                    "leave_time": 717,
-                    "time_spent": 448
-                },
-                {
-                    "date": "05-26-2020",
-                    "enter_time": 571,
-                    "leave_time": 1316,
-                    "time_spent": 745
-                },
-                {
-                    "date": "05-27-2020",
-                    "enter_time": 235,
-                    "leave_time": 649,
-                    "time_spent": 414
-                },
-                {
-                    "date": "05-28-2020",
-                    "enter_time": 870,
-                    "leave_time": 1916,
-                    "time_spent": 1046
-                },
-                {
-                    "date": "05-29-2020",
-                    "enter_time": 265,
-                    "leave_time": 715,
-                    "time_spent": 450
-                },
-                {
-                    "date": "06-01-2020",
-                    "enter_time": 970,
-                    "leave_time": 2230,
-                    "time_spent": 1260
-                },
-                {
-                    "date": "06-02-2020",
-                    "enter_time": 829,
-                    "leave_time": 1947,
-                    "time_spent": 1118
-                },
-                {
-                    "date": "06-03-2020",
-                    "enter_time": 444,
-                    "leave_time": 1168,
-                    "time_spent": 724
-                },
-                {
-                    "date": "06-04-2020",
-                    "enter_time": 529,
-                    "leave_time": 1341,
-                    "time_spent": 812
-                },
-                {
-                    "date": "06-05-2020",
-                    "enter_time": 697,
-                    "leave_time": 1667,
-                    "time_spent": 970
+                    "leave_time": 981,
+                    "enter_time": 451,
+                    "time_spent": 530
                 }
             ]
         },
@@ -260,63 +132,191 @@
             "attendance": [
                 {
                     "date": "05-25-2020",
-                    "enter_time": 469,
-                    "leave_time": 1128,
-                    "time_spent": 659
+                    "time_spent": 796,
+                    "leave_time": 1329,
+                    "enter_time": 533
                 },
                 {
                     "date": "05-26-2020",
-                    "enter_time": 376,
-                    "leave_time": 932,
-                    "time_spent": 556
+                    "time_spent": 638,
+                    "leave_time": 999,
+                    "enter_time": 361
                 },
                 {
                     "date": "05-27-2020",
-                    "enter_time": 452,
-                    "leave_time": 1086,
-                    "time_spent": 634
+                    "time_spent": 1081,
+                    "leave_time": 1904,
+                    "enter_time": 823
                 },
                 {
                     "date": "05-28-2020",
-                    "enter_time": 1010,
-                    "leave_time": 2206,
-                    "time_spent": 1196
+                    "time_spent": 1000,
+                    "leave_time": 1734,
+                    "enter_time": 734
                 },
                 {
                     "date": "05-29-2020",
-                    "enter_time": 351,
-                    "leave_time": 888,
-                    "time_spent": 537
+                    "time_spent": 807,
+                    "leave_time": 1376,
+                    "enter_time": 569
                 },
                 {
                     "date": "06-01-2020",
-                    "enter_time": 490,
-                    "leave_time": 1355,
-                    "time_spent": 865
+                    "leave_time": 675,
+                    "enter_time": 216,
+                    "time_spent": 459
                 },
                 {
                     "date": "06-02-2020",
-                    "enter_time": 901,
-                    "leave_time": 2134,
-                    "time_spent": 1233
+                    "leave_time": 1027,
+                    "enter_time": 388,
+                    "time_spent": 639
                 },
                 {
                     "date": "06-03-2020",
-                    "enter_time": 745,
-                    "leave_time": 1833,
-                    "time_spent": 1088
+                    "leave_time": 1373,
+                    "enter_time": 553,
+                    "time_spent": 820
                 },
                 {
                     "date": "06-04-2020",
-                    "enter_time": 835,
-                    "leave_time": 2051,
-                    "time_spent": 1216
+                    "leave_time": 1473,
+                    "enter_time": 616,
+                    "time_spent": 857
                 },
                 {
                     "date": "06-05-2020",
-                    "enter_time": 506,
-                    "leave_time": 1393,
-                    "time_spent": 887
+                    "leave_time": 1941,
+                    "enter_time": 836,
+                    "time_spent": 1105
+                }
+            ]
+        },
+        "Brandon": {
+            "attendance": [
+                {
+                    "date": "05-25-2020",
+                    "time_spent": 631,
+                    "leave_time": 1006,
+                    "enter_time": 375
+                },
+                {
+                    "date": "05-26-2020",
+                    "time_spent": 502,
+                    "leave_time": 756,
+                    "enter_time": 254
+                },
+                {
+                    "date": "05-27-2020",
+                    "time_spent": 1053,
+                    "leave_time": 1855,
+                    "enter_time": 802
+                },
+                {
+                    "date": "05-28-2020",
+                    "time_spent": 956,
+                    "leave_time": 1668,
+                    "enter_time": 712
+                },
+                {
+                    "date": "05-29-2020",
+                    "time_spent": 624,
+                    "leave_time": 1013,
+                    "enter_time": 389
+                },
+                {
+                    "date": "06-01-2020",
+                    "leave_time": 2150,
+                    "enter_time": 929,
+                    "time_spent": 1221
+                },
+                {
+                    "date": "06-02-2020",
+                    "leave_time": 1376,
+                    "enter_time": 542,
+                    "time_spent": 834
+                },
+                {
+                    "date": "06-03-2020",
+                    "leave_time": 2257,
+                    "enter_time": 977,
+                    "time_spent": 1280
+                },
+                {
+                    "date": "06-04-2020",
+                    "leave_time": 1881,
+                    "enter_time": 800,
+                    "time_spent": 1081
+                },
+                {
+                    "date": "06-05-2020",
+                    "leave_time": 1432,
+                    "enter_time": 581,
+                    "time_spent": 851
+                }
+            ]
+        },
+        "Preston": {
+            "attendance": [
+                {
+                    "date": "05-25-2020",
+                    "time_spent": 854,
+                    "leave_time": 1305,
+                    "enter_time": 451
+                },
+                {
+                    "date": "05-26-2020",
+                    "time_spent": 1263,
+                    "leave_time": 2125,
+                    "enter_time": 862
+                },
+                {
+                    "date": "05-27-2020",
+                    "time_spent": 1139,
+                    "leave_time": 1878,
+                    "enter_time": 739
+                },
+                {
+                    "date": "05-28-2020",
+                    "time_spent": 1400,
+                    "leave_time": 2413,
+                    "enter_time": 1013
+                },
+                {
+                    "date": "05-29-2020",
+                    "time_spent": 1131,
+                    "leave_time": 1851,
+                    "enter_time": 720
+                },
+                {
+                    "date": "06-01-2020",
+                    "leave_time": 960,
+                    "enter_time": 325,
+                    "time_spent": 635
+                },
+                {
+                    "date": "06-02-2020",
+                    "leave_time": 2042,
+                    "enter_time": 863,
+                    "time_spent": 1179
+                },
+                {
+                    "date": "06-03-2020",
+                    "leave_time": 999,
+                    "enter_time": 340,
+                    "time_spent": 659
+                },
+                {
+                    "date": "06-04-2020",
+                    "leave_time": 2146,
+                    "enter_time": 906,
+                    "time_spent": 1240
+                },
+                {
+                    "date": "06-05-2020",
+                    "leave_time": 1118,
+                    "enter_time": 392,
+                    "time_spent": 726
                 }
             ]
         }

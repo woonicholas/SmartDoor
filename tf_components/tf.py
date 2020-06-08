@@ -5,7 +5,7 @@ import pathlib
 import numpy as np
 import pandas as pd
 import seaborn as sns
-
+import json
 import tensorflow as tf
 
 from tensorflow import keras
@@ -167,10 +167,12 @@ def get_attendance(name, date):
         record = data["history"][name]
         for attendance in record["attendance"]:
             if (attendance["date"] == date):
+                enter_time = attendance["enter_time"]
+                leave_time = attendance["leave_time"]
                 ret = {
                     'name' : name,
-                    'enter': attendance["enter_time"],
-                    'leave': attendance["leave_time"]
+                    'enter_time': data_maker.timeToString(enter_time//60, enter_time%60),
+                    'leave_time': data_maker.timeToString(leave_time//60, leave_time%60)
                 }
     if (ret != None):
         print(ret)
@@ -178,6 +180,37 @@ def get_attendance(name, date):
     else:
         print("Date is either invalid or no record for requested date")
         return("Date is either invalid or no record for requested date")
+
+
+## dates should be an array of strings
+def get_multiple_attendance(name, dates):
+    if name not in data_maker.people:
+        return ("we don't have enough data for {} yet<br>"
+                "here's a list of people we currently have {}".format(name, data_maker.people))  
+
+    ret = {}  
+
+    with open('attendance.json', 'r') as attendance_file:
+        data = json.load(attendance_file)
+        record = data["history"][name]
+        for attendance in record["attendance"]:
+            if (attendance["date"] in dates):
+                enter_time = attendance["enter_time"]
+                leave_time = attendance["leave_time"]
+                a = {
+                    'name' : name,
+                    'enter_time': data_maker.timeToString(enter_time//60, enter_time%60),
+                    'leave_time': data_maker.timeToString(leave_time//60, leave_time%60)                    
+                }
+                ret[attendance["date"]] = a
+    if (len(ret) > 0):
+        print(ret)
+        return json.dumps(ret)
+    else:
+        print("Dates are either invalid or no record for requested date")
+        return("Dates are either invalid or no record for requested date")                
+
+
 
 
 # a = plt.axes(aspect='equal')
