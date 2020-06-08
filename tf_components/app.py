@@ -138,10 +138,12 @@ def get_attendance(name, date):
         return str(e)
 
 @app.route('/multiple_attendance/<name>/<dates>')
-def get_multiple_attendance(name, dates):
+def get_multiple_attendance(name):
     if not authenticate():
         return 'Invalid Username or Password'
     try:
+        data = request.get_json()
+        dates = data["dates"].split(",")
         return tf.get_multiple_attendance(name, dates)
     except Exception as e:
         return str(e)        
