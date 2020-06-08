@@ -1,6 +1,6 @@
 import json
 import random
-import datetime
+from datetime import datetime, date, timedelta
 import numpy as np
 
 data = {}
@@ -57,8 +57,12 @@ def write_to_file():
         delta = int(random.uniform(-20, 20))
         for i in range(150):
             day = int(random.random()*7)
-            eh, em, stime = randomTime(start, end)
-            lrtime = stime + int(30 + stime+stay * (1.07 - day/40) * random.uniform(0.98, 1.02))
+            if p == 'Ivan' or p == 'Nick':
+                eh, em, stime = randomTime(410, 550)  # # around 7am to 9am
+                lrtime = stime + int(400 + random.randint(120, 160))
+            else:
+                eh, em, stime = randomTime(start, end)
+                lrtime = stime + int(30 + stime+stay * (1.07 - day/40) * random.uniform(0.98, 1.02))
             supposed_enter = stime + delta + int(random.uniform(-3, 4))
             data[p].add(TimeObject(p, eh, em, stime, lrtime, day, supposed_enter))
 
@@ -78,6 +82,55 @@ def write_to_file():
                 file.write(str(i.enter_time) + ' ')
                 file.write(str(i.day) + ' ')
                 file.write(str(i.time_spent) + '\n')
+
+## Doesn't check if a date being added in is already stored.
+## This is just to generate data. Not used practically.
+
+## start_date = [year, month, day] => [2020, 6, 1]
+## end_date   = [year, month, day] => [2020, 6, 5]
+
+def write_to_attendance(start_year, start_month, start_day, end_year, end_month, end_day):
+    with open('attendance.json', 'r+') as attendance_file:
+        data = json.load(attendance_file)
+        history = data['history']
+
+        for p in people:
+            record = history[p]
+            attendance = record["attendance"]
+
+            start = int(abs(random.gauss(200, 80)))
+            end = int(abs(random.gauss(1000, 80)))
+            stay = int(abs(random.gauss((end - start) / 4, 80)))
+            (start, end) = (min(start, end), max(start, end))
+
+            current_date = date(start_year, start_month, start_day)
+            end_date = date(end_year, end_month, end_day)
+
+            delta = timedelta(days=1)
+            while current_date <= end_date:
+                print(current_date.strftime('%m/%d/%Y'))
+                if p == 'Ivan' or p == 'Nick':
+                    eh, em, stime = randomTime(410, 550)  # # around 7am to 9am
+                    lrtime = stime + int(400 + random.randint(120, 160))
+                else:
+                    day = int(random.random() * 7)
+                    eh, em, stime = randomTime(start, end)
+                    lrtime = stime + int(30 + stime + stay * (1.07 - day/ 40) * random.uniform(0.98, 1.02))
+
+                time_spent = lrtime - stime
+
+                attendance.append({
+                    'date': current_date.strftime('%m/%d/%Y'),
+                    'enter_time': stime,
+                    'leave_time': lrtime,
+                    'time_spent': time_spent,
+                    })
+                current_date += delta
+
+        attendance_file.seek(0)
+        json.dump(data, attendance_file, indent=4)
+
+# write_to_attendance(2020, 5, 25, 2020, 5, 29)
 
 '''
 data: [['Emma', 329, 2, 234],

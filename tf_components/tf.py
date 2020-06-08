@@ -154,6 +154,32 @@ def predict_enter(model, name, supposed_enter, day):
         data_maker.timeToString(supposed_enter//60, supposed_enter%60),
         weekday[day],
         data_maker.timeToString(enter//60, enter%60))
+
+def get_attendance(name, date):
+    if name not in data_maker.people:
+        return ("we don't have enough data for {} yet<br>"
+                "here's a list of people we currently have {}".format(name, data_maker.people))  
+
+    ret = None 
+
+    with open('attendance.json', 'r') as attendance_file:
+        data = json.load(attendance_file)
+        record = data["history"][name]
+        for attendance in record["attendance"]:
+            if (attendance["date"] == date):
+                ret = {
+                    'name' : name,
+                    'enter': attendance["enter_time"],
+                    'leave': attendance["leave_time"]
+                }
+    if (ret != None):
+        print(ret)
+        return json.dumps(ret)
+    else:
+        print("Date is either invalid or no record for requested date")
+        return("Date is either invalid or no record for requested date")
+
+
 # a = plt.axes(aspect='equal')
 # plt.scatter(test_labels, test_predictions)
 # plt.xlabel('True Values [Time Spent]')
