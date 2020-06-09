@@ -19,10 +19,8 @@ def get_time_for_api(weekday):
 @app.route('/')
 def home_page():
   with open('db.json', 'r') as json_file:
-    with open('songs.json', 'r') as song_file:
-      people = json.load(json_file)
-      songs = json.load(song_file)
-      return render_template("index.html", people = people['people'], songs= songs['songs'])
+    people = json.load(json_file)
+    return render_template("index.html", people = people['people'])
 
 @app.route('/employee/<id>')
 def employee_page(id):

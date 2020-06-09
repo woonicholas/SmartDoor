@@ -1,28 +1,31 @@
 
-import socket
+
+import zmq
 import sys
 import json
+import time
+
+##imports from parent directory
+sys.path.insert(0, '..')
+from constants import *
+
 
 def client_program():
-    # host = socket.gethostname()
-    host = '128.195.78.119'  # change this to server ip specified in UCI VPN
-    port = 5006  # socket server port number
+    context = zmq.Context()
+    client_socket = context.socket(zmq.PUB)  # instantiate
+    client_socket.connect("tcp://%s:%s" %(HOST, IN_PORT))
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
-    
     data=json.dumps(json.load(open("db.json")))
 
 
     try:
-        client_socket.connect((host, port))  # connect to the server
-        print('connected to (' + str((host, port)) + '')
+        client_socket.connect("tcp://%s:%s" %(HOST, IN_PORT))
+        print('connected to (' + str((HOST, IN_PORT)) + '')
         
         data = "songs_db " + data
 
-        client_socket.sendall(bytes(data,encoding="utf-8"))  # send message
+        client_socket.send_string(data)  # send json
 
-        rec = client_socket.recv(1024).decode()  # receive response
-        print('Received from server: ' + rec)  # show in terminal
 
     finally:
         client_socket.close()  # close the connection

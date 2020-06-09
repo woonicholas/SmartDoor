@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class='row justify-content-center mt-3'>
-    <h>Smart Door</h1>
+    <h1>Smart Door</h1>
   </div>
   <div class='row mt-5 justify-content-center'>
     <div class='card col-md-4 p-3 shadow-lg'>
@@ -35,14 +35,45 @@
             <th scope="row">{{p['id']}}</th>
             <td id="{{p['id']}}" class='employeeTableName' onclick='handleNameClick(event);'>{{p['name']}}</td>
             <td>
-              <div class="dropdown">
-                <button id="song-select {{p['id']}}" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{p['song']}}
+              <div class='row'>
+                <b class='ml-4' id="song-select {{p['id']}}" >{{p['song']}}</b>
+                <button
+                  class="btn btn-outline-secondary ml-auto" 
+                  type="button" data-toggle="collapse" 
+                  href="#songSelectCollapse{{p['id']}}" 
+                  aria-expanded="false" 
+                  aria-controls="songSelectCollapse{{p['id']}}"
+                >
+                  Update
                 </button>
-                <div class="dropdown-menu" onclick='songSelect(event);' aria-labelledby="dropdownMenuButton">
-                  {%for s in songs%}
-                    <a class="dropdown-item" id="{{p['id']}}" href="#">{{s['song']}}</a>
-                  {%endfor%}
+                <div class="row">
+                  <div class="col">
+                    <div class="collapse" id="songSelectCollapse{{p['id']}}">
+                      <form class='form' onsubmit='songSelect(event);' id="{{p['id']}}">
+                        <div class='card'>
+                          <div class="card-body mt-2">
+                                <div class='input-group my-3 '>
+                                  <div class='input-group-prepend'>
+                                    <span for="songName{{p['id']}}" class='input-group-text' id="songName{{p['id']}}">Song:</span>
+                                  </div>
+                                    <input type="name" class="form-control" id="songName{{p['id']}}" name="songName{{p['id']}}" placeholder="Enter Song"
+                                      aria-describedby="songName{{p['id']}}"
+                                    ></input>
+                                </div>
+                          </div>
+                          <div class="card-footer justify-content-right">
+                            <button type="button" class="btn btn-secondary ml-2 float-right"
+                              type="button" data-toggle="collapse" 
+                              href="#songSelectCollapse{{p['id']}}" 
+                              aria-expanded="false" 
+                              aria-controls="songSelectCollapse{{p['id']}}"
+                            >Close</button>
+                            <button type="submit" class="btn btn-primary float-right">Save changes</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </td>

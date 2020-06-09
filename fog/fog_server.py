@@ -68,8 +68,21 @@ def fog_server():
             topic = splitted[0]
             name = splitted[1]
             location = splitted[2]
-            print("%s detected %s %s"%(topic, name, location))
+            
+            if topic =='songs_db':
+                print('Song Database Received!\nWriting to json file...')
+                message = socket.recv.decode()
+                splitted = message.split()
+                songs_dict = json.loads(splitted[1])
+                with open("songs_db.json", "r+") as songs_db:
+                    songs_db.seek(0)
+                    json.dump(songs_dict, songs_db,indent=2)
+                    songs_db.truncate()
+                    songs_db.close()
+
+
             if topic == 'camera':
+                print("%s detected %s %s"%(topic, name, location))
                 if name not in visitor_dict:
                     visitor_dict[name] = {
                         'location': ''
